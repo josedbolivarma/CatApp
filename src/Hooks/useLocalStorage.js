@@ -14,7 +14,6 @@ export const useLocalStorage = (keyName, defaultValue) => {
         const value = window.localStorage.getItem(keyName);
   
         if (value) {
-          console.log('VALUE', value);
           return JSON.parse(value);
         } else {
           window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
@@ -30,12 +29,9 @@ export const useLocalStorage = (keyName, defaultValue) => {
             id,
             url
         }
-    
       try {
-        let filtrado = storedValue.filter(item => item.id == id);
-        console.log(filtrado, 'FILTRADO NOJODA')
+        let filtrado = storedValue.filter(item => item.id === id);
         if(filtrado[0]) {
-          console.log('EL ID CONCUERDA CON: ', filtrado);
         } else {
           const newValue = [...storedValue, obj];
           setStoredValue(newValue);

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logoutAsync } from '../redux/actions/actionLogin';
+import { ButtonPrimary } from '../styled/styledcomponents';
 
 const Header = () => {
   const classes = useStyles();
@@ -25,9 +26,9 @@ const Header = () => {
             Favoritos
             </Link>
             <div>
-            <button onClick={handleLogout}>
+            <ButtonPrimary variant='contained' color='success' onClick={handleLogout}>
                 Logout User
-            </button>
+            </ButtonPrimary>
             </div>
         </div>
     </header>

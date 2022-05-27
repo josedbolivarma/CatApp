@@ -1,18 +1,14 @@
-import { Button } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Button, Typography } from '@material-ui/core'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLocalStorage } from '../Hooks/useLocalStorage'
-import { ListCard } from '../styled/styledcomponents'
 
 // MakeStyles
 import { makeStyles } from '@material-ui/core';
 
 const Listado = () => {
    const classes = useStyles();
-   const [favsData, setFavsData] = useState([])
    const [storedValue] = useLocalStorage('favoritos', []);
-
-   console.log(storedValue, 'Store Value');
 
    if (!storedValue) return (
       <div>
@@ -34,7 +30,7 @@ const Listado = () => {
    return (
       <div>
          <div className={classes.list__container}>
-         <h1>Favoritos</h1>
+         <Typography component='h3' variant='h3' align='center'>Favoritos</Typography>
          <div className={classes.list__gallery}>
 
          {
@@ -51,11 +47,14 @@ const Listado = () => {
 const useStyles = makeStyles((theme) => ({
    list__container: {
       width: '94%',
-      margin: '2rem auto'
+      margin: '2rem auto',
+      textTransform: 'uppercase',
    },
    list__gallery: {
+      margin: '1rem 0',
       columns: '5 320px',
-      columnGap: '0.5em'
+      columnGap: '0.5em',
+      
    },
    list__image: {
       width: '100%',

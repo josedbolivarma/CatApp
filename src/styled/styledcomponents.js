@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,6 +10,10 @@ export const LinkRedirect = styled(Link)`
 `;
 
 // Buttons
+
+export const ButtonPrimary = styled(Button)`
+width: 100%;
+`
 
 export const ButtonGoogle = styled.button`
 display: flex;
@@ -27,10 +32,3 @@ width: 100%;
 marginTop: 10px;
 `;
 
-export const ListCard = styled.ul`
-display: grid;
-grid-template-columns: repeat(auto-fill, 200px);
-gap: 40px;
-padding: 40px;
-justify-content: center;
-`

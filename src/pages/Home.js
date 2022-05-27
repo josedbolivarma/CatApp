@@ -3,91 +3,86 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { ButtonPrimary } from '../styled/styledcomponents';
 
+// Hooks
+import { useGetData } from '../Hooks/useGetData';
+import { useLocalStorage } from '../Hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
+      width: '90%',
+      margin: '1rem auto',
       display: 'flex',
-      height: 400
+      height: '80vh',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+      }
     },
     details: {
       display: 'flex',
       flexDirection: 'column',
+      justifyContent: 'space-between'
     },
     content: {
-      flex: '1 0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(1)
     },
     cover: {
-      width: 500,
+      width: '100%',
+      height: '100%',
     },
     controls: {
-      paddingLeft: theme.spacing(),
-      paddingBottom: theme.spacing(2),
+      width: '90%',
+      margin: '1rem auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(1)
     }
   }),
 );
 
 const Home = () => {
-
   const classes = useStyles();
-  const [data, setData] = useState([])
+  const { data, renderData } = useGetData('https://api.thecatapi.com/v1/images/search/');
 
-  const peticionGet = () => {
-    const url = 'https://api.thecatapi.com/v1/images/search'
-    axios.get(url)
-      .then(response => {
-        setData(response.data[0])
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error.message);
-      })
-  }
+  const [storedValue, setValue] = useLocalStorage('favoritos', []);
 
-  useEffect(() => {
-    peticionGet()
-  }, [])
-
-
-  const setFavorito = (id, url) => {
-    const a = JSON.parse(localStorage.getItem("favoritos")) || []
-    console.log(a);
-    const b = a.push({ id, url });
-    console.log(b);
-    localStorage.setItem("favoritos", JSON.stringify(b));
-  }
-
+// setFavorito(data.id, data.url)
+  console.log(data, 'dataaaaa');
   return (
     <div>
-      <h1>Todos los gatos</h1>
       <Card className={classes.root}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
+          <Typography align='center' component="h2" variant="h5"><b>Todos los gatos</b></Typography>
             <Typography component="h5" variant="h5"  >
               Un gato para todos los gustos
             </Typography>
           </CardContent>
+          
           <div className={classes.controls}>
 
-            <Button variant="contained" color="secondary" >
+            <ButtonPrimary variant="contained" color="secondary"
+            onClick={() => setValue(data.id, data.url)}
+            >
               <FavoriteIcon
-                onClick={() => setFavorito(data.id, data.url)}
               />Favorito
-            </Button>
-            <br />
-            <Button
+            </ButtonPrimary>
+            <ButtonPrimary
               variant="contained" color="primary"
-              onClick={() => peticionGet()}
+              onClick={() => renderData()}
             >
               Siguiente Gato!
-            </Button>
+            </ButtonPrimary>
           </div>
         </div>
+
         <CardMedia
           className={classes.cover}
           image={data.url}
@@ -95,6 +90,7 @@ const Home = () => {
           width={data.width}
           title="Live from space album cover"
         />
+
       </Card>
     </div>
   )

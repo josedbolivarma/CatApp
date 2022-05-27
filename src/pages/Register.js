@@ -6,7 +6,7 @@ import { registerAsync } from '../redux/actions/actionRegister';
 //Material UI
 import { makeStyles } from '@material-ui/core';
 import { LinkRedirect } from '../styled/styledcomponents';
-import { useForm } from '../components/Hooks/useForm';
+import { useForm } from '../Hooks/useForm';
 
 const Register = () => {
   const classes = useStyles();

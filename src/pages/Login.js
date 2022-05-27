@@ -7,7 +7,7 @@ import { loginGoogle } from '../redux/actions/actionLogin';
 //Material UI
 import { makeStyles } from '@material-ui/core';
 import { ButtonGoogle, LinkRedirect } from '../styled/styledcomponents';
-import { useForm } from '../components/Hooks/useForm';
+import { useForm } from '../Hooks/useForm';
 
 const Login = () => {
   const classes = useStyles();
